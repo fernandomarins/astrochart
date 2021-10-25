@@ -57,7 +57,7 @@ dictionary_signs = {
         'Scorpio': 'Você pode se destacar ao tratar de questões consideradas tabus ou sim- plesmente assumindo seu poder emocional, psíquico, financeiro, sexual e transformador. Pois você brilha ao superar crises e incentivar as pessoas a também renascerem. Tem a força de encarar o que não está tão aparente e agir com criatividade na expressão do que até então encontrava-se oculto, inconsciente, sob os véus do mistério. Sente-se repleto de vida quando reconhece determinados medos e in- veste corajosamente sua energia na superação dos mesmos. Daí o fato de poder obter o merecido reconhecimento por ser um agente catalisador de mudanças, principalmente por encarar com sabedoria a transitoriedade da vida e enxergar a força pessoal que se extrai das crises.',
         'Sagittarius': 'Você tem tudo para brilhar ao usar sua intuição, sua inspiração e suas habilidades professorais. Porque você se destaca ao ampliar a mente das pes- soas, alargando os horizontes perceptivos delas. Principalmente pelo fato de que você se sente vitalizado ao questionar as coisas com um olhar filosófico. Por isso, você pode obter o merecido reconhecimento por ser uma pessoa voltada para compreender a vida e encontrar um sentido maior para a mesma. Especialmente através de uma expansão cultural, religiosa, acadêmica, espiritual, jurídica e existencial. Enxergar longe e mostrar essa visão ampla das coisas é algo que te deixa entusiasmado.',
         'Capricorn': 'Você brilha ao demonstrar sua competência, sua produtividade e seu poder de influência social. Tem tudo para se destacar ao se preparar com muita paciência, praticidade e planejamento para assumir um papel de au- toridade na sociedade. Pode sentir-se vitalizado quando obtém o reconhecido por aquilo que empreende, produz e realiza. E essas ambições de conquistar um posição de sucesso, poder e respeitabilidade precisam ser assumidas com naturali- dade e criatividade. Desse modo, conquistará o merecido reconhecimento por agir de forma tão disciplinada e qualificada.',
-        'Aquarius': 'Você tem tudo para se destacar ao assumir seu jeito original de ser, pensar e se expressar. Porque você brilha quando compartilha suas ideias avançadas, sua intuição visionária e seus conhecimentos humanitários. Com espí- rito fraterno e unido a um grupo de pessoas de ideais semelhantes aos seus, pode exercer uma liderança criativa e promover mudanças na sociedade. Assim, você se sente vitalizado quando pensa diferente, quando estuda algo avançado e quando comunica seus conhecimentos. Aí obterá o mere- cido reconhecimento ao agir com esse humanitarismo. Ainda mais se sua individualidade se destacar e deixar sua marca na comunidade por meio da defesa de seus ideais sociais.',
+        'Aquarius': 'Você tem tudo para se destacar ao assumir seu jeito original de ser, pensar e se expressar. Porque você brilha quando compartilha suas ideias avançadas, sua intuição visionária e seus conhecimentos humanitários. Com espírito fraterno e unido a um grupo de pessoas de ideais semelhantes aos seus, pode exercer uma liderança criativa e promover mudanças na sociedade. Assim, você se sente vitalizado quando pensa diferente, quando estuda algo avançado e quando comunica seus conhecimentos. Aí obterá o merecido reconhecimento ao agir com esse humanitarismo. Ainda mais se sua individualidade se destacar e deixar sua marca na comunidade por meio da defesa de seus ideais sociais.',
         'Piscis': 'Você tem tudo para brilhar ao se expressar de modo compassivo, ima- ginativo, artístico e sensível. Pois se destaca ao se doar e ajudar as pessoas, principalmente através de um saudável autossacrifício repleto de encanto, sabedoria e inspiração emocional. Obter o reconhecimento por ter uma afinidade com as questões espirituais, artísticas, oníricas, inconscientes e imaginativas pode demandar que aceite sua sensibilidade e reconheça a importância de momentos de solidão, reflexão e busca por uma sintonia com Deus/Vida.'
     },
     'Moon': {
@@ -76,6 +76,24 @@ dictionary_signs = {
     }
 }
 
+def translate_sign(sign):
+    dictionary = {
+        'Aries': 'Áries',
+        'Taurus': 'Touro',
+        'Gemini': 'Gêmeos',
+        'Cancer': 'Câncer',
+        'Leo': 'Leão',
+        'Virgo': 'Virgem',
+        'Libra': 'Libra',
+        'Scorpio': 'Escorpião',
+        'Sagittarius': 'Sagitário',
+        'Capricorn': 'Capricórnio',
+        'Aquarius': 'Aquário',
+        'Piscis': 'Peixes'
+    }
+    
+    return dictionary[sign]
+
 st.title('ASTROCHART')
 
 st.header('Por favor coloque sua data, horário e local de nascimento ao lado')
@@ -93,11 +111,12 @@ pos = GeoPos(coord[0], coord[1])
 chart = Chart(full_date, pos)
 
 sun = chart.getObject(const.SUN)
+# spliting the string to get the first element, which is the sign and dropping the first character, which is <
 sun_sign = str(sun).split()[0][1:]
 
 c1, c2 = st.beta_columns(2)
 c1.subheader('Seu signo solar é:')
-c2.subheader(sun.sign)
+c2.subheader(translate_sign(sun.sign))
 
 st.write(dictionary_signs[sun_sign][sun.sign])
 
